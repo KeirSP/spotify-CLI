@@ -24,3 +24,23 @@ def read_config():
             config['base_url'] = f'{config["api_url"]}/{config["api_version"]}'
             auth_method = config['auth_method']
             config['auth_method'] = AuthMethod.__members__.get(auth_method)
+
+            return Config(**config)
+        
+    except IOError as e:
+        print(""" Error: couldn''t file the configuration file `config.yaml`
+            'on your current directory.
+
+            Default format is:',
+
+            client_id: 'your_client_id'
+            client_secret: 'you_client_secret'
+            access_token_url: 'https://accounts.spotify.com/api/token'
+            auth_url: 'http://accounts.spotify.com/authorize'
+            api_version: 'v1'
+            api_url: 'http//api.spotify.com'
+            auth_method: 'authentication method'
+
+            * auth_method can be CLIENT_CREDENTIALS or
+            AUTHORIZATION_CODE""")
+        raise
